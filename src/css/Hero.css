@@ -1,0 +1,1198 @@
+/* Hero.css - Complete Fixed Version */
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero-container {
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  width: 100%;
+}
+
+/* Banner Section - FIXED */
+.banner-section {
+  position: relative;
+  height: 90vh;
+  min-height: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.slide-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.slide-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.slide-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 2;
+}
+
+.banner-item {
+  position: relative;
+  z-index: 3;
+  padding: 0 2rem;
+  color: white;
+  left: 10%;
+}
+
+.banner-item h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.banner-item h2 span {
+  display: inline-block;
+  font-size: clamp(3rem, 3vw, 6rem);
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.price-btn {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.price-btn a {
+  text-decoration: none;
+}
+
+.primary-btn {
+  padding: 10px 25px;
+  height: 40px;
+  width: 100%;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+  transition: all 0.3s ease;
+}
+
+.primary-btn a {
+  color: white;
+  text-decoration: none;
+}
+
+.price-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.current-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff6b6b;
+}
+
+.original-price {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: line-through;
+}
+
+/* Custom Navigation */
+.custom-prev,
+.custom-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.custom-prev {
+  left: 2rem;
+}
+
+.custom-next {
+  right: 2rem;
+}
+
+.custom-prev:hover,
+.custom-next:hover {
+  background: #ff6b6b;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Section Styles */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-subtitle {
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #333;
+  font-weight: 700;
+}
+
+/* Popular Section */
+.popular-section {
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.popular-wrapper {
+  position: relative;
+  margin-bottom: 3rem;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+
+.popular-grid-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.popular-grid {
+  display: flex;
+  gap: 2rem;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+/* Desktop - 3 items */
+@media (min-width: 1024px) {
+  .popular-card {
+    flex: 0 0 calc(33.333% - 1.33rem);
+  }
+}
+
+/* Tablet - 2 items */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .popular-card {
+    flex: 0 0 calc(50% - 1rem);
+  }
+}
+
+/* Mobile - 1 item */
+@media (max-width: 639px) {
+  .popular-grid {
+    gap: 1rem;
+  }
+
+  .popular-card {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+}
+
+.popular-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+/* Slider Controls */
+.slider-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 10;
+  padding: 0 2rem;
+}
+
+.control-btn {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.control-btn:hover:not(:disabled) {
+  background: #ff6b6b;
+  color: white;
+  transform: scale(1.1);
+}
+
+.card-image {
+  position: relative;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.card-image img {
+  width: 100%;
+  height: 400px;
+  transition: transform 0.5s ease;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 107, 107, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: white;
+  font-size: 2rem;
+}
+
+.popular-card:hover .card-image img {
+  transform: scale(1.1);
+}
+
+.popular-card p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.line-shape {
+  width: 50px;
+  height: 2px;
+  background: #ff6b6b;
+  margin: 0 auto;
+}
+
+.popular-banners {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+  padding: 0;
+}
+
+.popular-banners img {
+  width: 100%;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+/* Food Items Grid */
+.items-section {
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 0;
+}
+
+.food-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.food-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.food-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.food-card:hover .food-image img {
+  transform: scale(1.1);
+}
+
+.food-info {
+  padding: 1.5rem;
+}
+
+.food-price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ff6b6b;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.food-title {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Cold Drinks Section */
+.cold-drinks-section {
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.cold-text-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.animated-text {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: #333;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.divider {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+  margin: 2rem auto;
+  border-radius: 2px;
+}
+
+.cold-drinks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0;
+}
+
+.cold-drink-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.drink-info .delivery-btn {
+  margin: 30px 0;
+}
+
+.Order-NowBrtn {
+  text-decoration: none;
+}
+
+.drink-info a {
+  text-decoration: none;
+}
+
+.drink-image {
+  height: 380px;
+  overflow: hidden;
+}
+
+.drink-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cold-drink-card:hover .drink-image img {
+  transform: scale(1.1);
+}
+
+.drink-info {
+  padding: 1.5rem;
+}
+
+.drink-price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ff6b6b;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Infinite Slider */
+.infinite-slider {
+  padding: 3rem 0;
+  background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+}
+
+.slide-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 2rem;
+  background: white;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.slide-item h3 {
+  font-size: 1.2rem;
+  color: #333;
+  white-space: nowrap;
+}
+
+.slide-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Features Section */
+.features-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.feature-card {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.feature-card img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+}
+
+.feature-card h4 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.feature-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* About Section */
+.about-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: center;
+  width: 100%;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.about-tag {
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.about-content h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.about-content h2 span {
+  color: #ff6b6b;
+}
+
+.about-content > p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.about-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.detail-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.detail-item h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.detail-item p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.about-btn {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+}
+
+/* Payment Methods */
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.payment-methods img {
+  width: 100%;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+/* Delivery Section */
+.delivery-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+  align-items: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 30px;
+  width: 100%;
+}
+
+.delivery-content p {
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.delivery-content h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.delivery-content h2 span {
+  color: #ff6b6b;
+}
+
+.delivery-btn {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+  transition: all 0.3s ease;
+}
+
+.delivery-image img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+/* ========== MOBILE RESPONSIVE FIXES ========== */
+
+/* Tablet and Mobile */
+@media (max-width: 1060px) {
+  .banner-item {
+    position: relative;
+    z-index: 3;
+    padding: 0 2rem;
+    color: white;
+    left: 8%;
+  }
+}
+@media (max-width: 1024px) {
+  .about-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .delivery-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .delivery-btn {
+    margin: 0 auto;
+  }
+
+  .slider-controls {
+    padding: 0 1rem;
+  }
+}
+
+/* Mobile Landscape and Tablet */
+@media (max-width: 768px) {
+  .price-btn {
+    position: relative;
+    left: 0px;
+  }
+
+  .banner-section {
+    height: 70vh;
+    min-height: 500px;
+  }
+
+  .banner-item {
+    padding: 0 1.5rem;
+    max-width: 100%;
+  }
+
+  .banner-item h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .banner-item h2 span {
+    font-size: 2.5rem;
+  }
+
+  .custom-prev,
+  .custom-next {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .custom-prev {
+    left: 1rem;
+  }
+
+  .custom-next {
+    right: 1rem;
+  }
+
+  /* Popular Section */
+  .popular-section {
+    padding: 3rem 1rem;
+  }
+
+  .popular-card {
+    padding: 1.5rem;
+  }
+
+  .popular-banners {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Food Items */
+  .items-section {
+    padding: 3rem 1rem;
+  }
+
+  .food-grid {
+    gap: 1rem;
+  }
+
+  /* Cold Drinks */
+  .cold-drinks-section {
+    padding: 3rem 1rem;
+  }
+
+  .animated-text {
+    font-size: 2rem;
+  }
+
+  .cold-drinks-grid {
+    gap: 1rem;
+  }
+
+  /* Features */
+  .features-section {
+    padding: 3rem 1rem;
+    gap: 1rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+  }
+
+  .feature-card img {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* About */
+  .about-section {
+    padding: 3rem 1rem;
+  }
+
+  .about-content h2 {
+    font-size: 2rem;
+  }
+
+  /* Payment Methods */
+  .payment-methods {
+    padding: 2rem 1rem;
+    gap: 1rem;
+  }
+
+  /* Delivery */
+  .delivery-section {
+    padding: 3rem 1rem;
+    gap: 2rem;
+  }
+
+  .delivery-image img {
+    max-width: 300px;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  /* Banner Fixes */
+  .banner-section {
+    height: 60vh;
+    min-height: 450px;
+  }
+
+  .banner-item {
+    padding: 0 1rem;
+  }
+
+  .banner-item h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .banner-item h2 span {
+    font-size: 1.2rem;
+    margin: 0px 0px 0px 5px;
+  }
+
+  .price-btn {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .primary-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+
+  .current-price {
+    font-size: 1.5rem;
+  }
+
+  .original-price {
+    font-size: 1rem;
+  }
+
+  .custom-prev,
+  .custom-next {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .custom-prev {
+    left: 0.5rem;
+  }
+
+  .custom-next {
+    right: 0.5rem;
+  }
+
+  /* Section Headers */
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  /* Popular Section */
+  .popular-section {
+    padding: 2rem 1rem;
+  }
+
+  .popular-card {
+    padding: 1rem;
+  }
+
+  .popular-card p {
+    font-size: 1rem;
+  }
+
+  .card-image {
+    margin-bottom: 1rem;
+  }
+
+  .control-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  /* Food Items */
+  .food-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .food-card {
+    max-width: 100%;
+  }
+
+  .food-image {
+    height: 180px;
+  }
+
+  .food-info {
+    padding: 1rem;
+  }
+
+  .food-price {
+    font-size: 1rem;
+  }
+
+  /* Cold Drinks */
+  .cold-drinks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cold-drink-card {
+    max-width: 100%;
+  }
+
+  .drink-image {
+    height: 160px;
+  }
+
+  .animated-text {
+    font-size: 1.8rem;
+  }
+
+  .divider {
+    width: 80px;
+    margin: 1.5rem auto;
+  }
+
+  /* Infinite Slider */
+  .infinite-slider {
+    padding: 2rem 0;
+  }
+
+  .slide-item {
+    padding: 0.4rem 1rem;
+  }
+
+  .slide-item h3 {
+    font-size: 0.9rem;
+  }
+
+  .slide-item img {
+    width: 25px;
+    height: 25px;
+  }
+
+  /* Features */
+  .features-section {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .feature-card img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .feature-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .feature-card p {
+    font-size: 0.9rem;
+  }
+
+  /* About */
+  .about-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .detail-item {
+    gap: 0.8rem;
+  }
+
+  .detail-item img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .detail-item h3 {
+    font-size: 1rem;
+  }
+
+  .detail-item p {
+    font-size: 0.85rem;
+  }
+
+  .about-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+    max-width: 250px;
+  }
+
+  /* Delivery */
+  .delivery-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .delivery-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .delivery-image img {
+    max-width: 250px;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+  .banner-section {
+    height: 55vh;
+    min-height: 400px;
+  }
+
+  .banner-item h2 {
+    font-size: 1.5rem;
+  }
+
+  .banner-item h2 span {
+    font-size: 1.8rem;
+  }
+
+  .primary-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .current-price {
+    font-size: 1.3rem;
+  }
+
+  .original-price {
+    font-size: 0.9rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .animated-text {
+    font-size: 1.5rem;
+  }
+
+  .popular-card {
+    padding: 0.8rem;
+  }
+
+  .food-image {
+    height: 160px;
+  }
+
+  .drink-image {
+    height: 140px;
+  }
+}
+
+/* Landscape Mode */
+@media (max-height: 500px) and (orientation: landscape) {
+  .banner-section {
+    height: 100vh;
+    min-height: 300px;
+  }
+
+  .banner-item {
+    padding: 0 2rem;
+  }
+
+  .banner-item h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .banner-item h2 span {
+    font-size: 1.8rem;
+  }
+
+  .price-btn {
+    gap: 1rem;
+  }
+}
+
+/* Animation Classes */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
