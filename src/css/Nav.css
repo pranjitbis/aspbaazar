@@ -6,7 +6,7 @@
 }
 
 .navbar {
-  position: relative; /* Changed from fixed to relative */
+  position: fixed; /* Changed from fixed to relative */
   top: 0;
   left: 0;
   width: 100%;
@@ -17,7 +17,7 @@
 }
 
 .navbar-scrolled {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   padding: 1rem 0;
@@ -41,7 +41,7 @@
 }
 
 .logo-text {
-  color: #333;
+  color: #fcfcfc;
 }
 
 .logo-dot {
@@ -51,7 +51,7 @@
 }
 
 .navbar-scrolled .logo-text {
-  color: #333;
+  color: #ffffff;
 }
 
 .nav-menu {
@@ -68,7 +68,7 @@
 
 .nav-link {
   text-decoration: none;
-  color: #333;
+  color: #ffffff;
   font-weight: 500;
   font-size: 1rem;
   padding: 0.5rem 0;
@@ -80,7 +80,7 @@
 }
 
 .navbar-scrolled .nav-link {
-  color: #333;
+  color: #ffffff;
 }
 
 .nav-link:hover {

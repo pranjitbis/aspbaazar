@@ -4,10 +4,9 @@ import { useRef } from "react";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import AboutImage from "../../assets/Images/about.png";
-import Fres from "../../assets/Images/fresh.webp";
+import Fres from "../../assets/Images/fres.avif";
 
 // Import team images
-import MogaImg from "../../assets/about/Moga.jpeg";
 import JaidulImg from "../../assets/about/jaidul.jpeg";
 import AsrafullImg from "../../assets/about/asrafull.jpeg";
 
@@ -93,18 +92,6 @@ export default function About() {
       social: {
         instagram: "https://www.instagram.com/jaidul___khan_10k/",
         facebook: "https://www.facebook.com/profile.php?id=61581995567514",
-      },
-    },
-    {
-      id: 3,
-      name: "Asadul Ali",
-      role: "Employee",
-      image: MogaImg,
-      quote: "Service with a smile, delivery with care.",
-      icon: <TbChefHat />,
-      social: {
-        instagram: "https://www.instagram.com/____asadul____18/",
-        facebook: "https://www.facebook.com/profile.php?id=61569988919704",
       },
     },
   ];
@@ -240,7 +227,7 @@ export default function About() {
               <div className="stat-icon">
                 <TbClock />
               </div>
-              <h3>30 min</h3>
+              <h3>45 min</h3>
               <p>Avg. Delivery</p>
             </motion.div>
           </div>
@@ -345,7 +332,7 @@ export default function About() {
                   <TbTruckDelivery className="feature-icon" />
                   <div>
                     <h4>Fast Delivery</h4>
-                    <p>30 minutes or less</p>
+                    <p>45 minutes or less</p>
                   </div>
                 </motion.div>
               </div>

@@ -311,7 +311,7 @@ export default function Contact() {
                 <TbMapPin />
               </div>
               <h3>Visit Us</h3>
-              <p>Delhi to Goa, India</p>
+              <p>Dhekiajuli to Tezpur, Assam</p>
               <span className="quick-note">Multiple Locations</span>
             </motion.div>
           </div>
@@ -497,7 +497,7 @@ export default function Contact() {
                   </div>
                   <div className="info-content">
                     <h3>Business Inquiries</h3>
-                    <p>+91 98765 43210</p>
+                    <p>+91 93873 00323</p>
                     <p>aspbaazar@gmail.com</p>
                     <span className="info-badge">Mon-Sat, 9AM-8PM</span>
                   </div>
