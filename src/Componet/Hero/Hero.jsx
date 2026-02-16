@@ -10,10 +10,14 @@ import {
   TbPhone,
   TbChevronLeft,
   TbChevronRight,
+  TbStar,
+  TbClock,
+  TbDiscount,
 } from "react-icons/tb";
 import { HiShoppingCart } from "react-icons/hi2";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
-
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { IoMdCall } from "react-icons/io";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -46,17 +50,27 @@ import "../../css/Hero.css";
 export default function Hero() {
   const [next, setNext] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [likedItems, setLikedItems] = useState({});
   const [itemsPerView, setItemsPerView] = useState(3);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("all");
   const popularRef = useRef(null);
   const swiperRef = useRef(null);
 
   // Calculate items per view based on screen size
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setItemsPerView(1);
-      } else if (window.innerWidth < 1024) {
-        setItemsPerView(2);
+      const mobile = window.innerWidth < 640;
+      const tablet = window.innerWidth >= 640 && window.innerWidth < 1024;
+
+      setIsMobile(mobile);
+      setIsTablet(tablet);
+
+      if (mobile) {
+        setItemsPerView(1.2);
+      } else if (tablet) {
+        setItemsPerView(2.2);
       } else {
         setItemsPerView(3);
       }
@@ -69,7 +83,7 @@ export default function Hero() {
 
   // Handle popular items slider
   const MoveNext = () => {
-    const maxIndex = Math.ceil(cards.length / itemsPerView) - 1;
+    const maxIndex = Math.ceil(cards.length / Math.floor(itemsPerView)) - 1;
     setNext((prev) => (prev < maxIndex ? prev + 1 : 0));
   };
 
@@ -77,88 +91,78 @@ export default function Hero() {
     setNext((prev) => (prev > 0 ? prev - 1 : 0));
   };
 
+  // Toggle like
+  const toggleLike = (id) => {
+    setLikedItems((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
   useEffect(() => {
     AOS.init({
-      offset: 100,
+      offset: 50,
       duration: 800,
       easing: "ease-out-cubic",
-      delay: 100,
+      delay: 50,
       once: true,
     });
   }, []);
 
-  // Animation variants
-  const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-  };
-
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const scaleIn = {
-    initial: { opacity: 0, scale: 0.9 },
-    animate: { opacity: 1, scale: 1 },
-    transition: { duration: 0.5 },
-  };
-
-  const text = "Cold Drink";
-  const slideItem = [
-    "Popular Dishes",
-    "Trending",
-    "Popular Food Item",
-    "Popular Cold Drink",
-  ];
-  const slideNew = [...slideItem, ...slideItem];
-
-  // Banner slides data
+  // Banner slides data with background images
   const bannerSlides = [
     {
       id: 1,
-      img: Banner,
-      title: "Tandoori Paneer, Pure",
+      backgroundImage: Banner,
+      title: "Tandoori Paneer",
       subtitle: "Craving!",
+      description: "Spicy & delicious paneer tikka with secret spices",
       price: "₹99",
       originalPrice: "₹150",
-      btnText: "Buy Now",
+      discount: "35% off",
+      btnText: "Order Now",
       btnIcon: <TbTruckDelivery />,
-      color: "#ff6b6b",
+      color: "#079ff7",
+      overlay:
+        "linear-gradient(135deg, rgba(19, 83, 136, 0.9) 0%, rgba(142, 168, 255, 0.85) 100%)",
     },
     {
       id: 2,
-      img: BannerOne,
-      title: "Aloo Paratha, Butter",
+      backgroundImage: BannerOne,
+      title: "Aloo Paratha",
       subtitle: "Heaven!",
+      description: "Stuffed with spiced potatoes, served with butter",
       price: "₹90",
       originalPrice: "₹100",
-      btnText: "Buy Now",
+      discount: "10% off",
+      btnText: "Order Now",
       btnIcon: <TbTruckDelivery />,
       color: "#4ecdc4",
+      overlay:
+        "linear-gradient(135deg, rgba(72, 24, 136, 0.9) 0%, rgba(97, 146, 236, 0.85) 100%)",
     },
     {
       id: 3,
-      img: BannerTow,
-      title: "Samosa Love at First",
+      backgroundImage: BannerTow,
+      title: "Samosa",
       subtitle: "Bite!",
+      description: "Crispy pastry filled with spiced potatoes & peas",
       price: "₹90",
       originalPrice: "₹150",
+      discount: "40% off",
       btnText: "Call Now",
       btnIcon: <TbPhone />,
       color: "#ffe66d",
+      overlay:
+        "linear-gradient(135deg, rgba(179, 25, 127, 0.9) 0%, rgba(255,217,61,0.85) 100%)",
     },
   ];
 
   return (
-    <div className="hero-container">
-      {/* Hero Banner Section */}
+    <div className="modern-hero-container">
+      {/* Hero Banner Section - Modern Design with Background Images */}
       <motion.section
-        className="banner-section"
+        className="modern-banner-section"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -166,10 +170,7 @@ export default function Hero() {
         <Swiper
           modules={[Navigation, Pagination, Autoplay, EffectFade]}
           effect="fade"
-          navigation={{
-            prevEl: ".custom-prev",
-            nextEl: ".custom-next",
-          }}
+          navigation={!isMobile}
           pagination={{
             clickable: true,
             dynamicBullets: true,
@@ -180,483 +181,368 @@ export default function Hero() {
           }}
           loop={true}
           onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
-          className="hero-swiper"
+          className="modern-hero-swiper"
           ref={swiperRef}
         >
           {bannerSlides.map((slide, index) => (
             <SwiperSlide key={slide.id}>
-              <motion.div
-                className="slide-content"
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 6 }}
+              <div
+                className="modern-slide-content"
+                style={{
+                  backgroundImage: `url(${slide.backgroundImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  position: "relative",
+                  width: "100%",
+                  height: "100%",
+                }}
               >
-                <div className="slide-image-wrapper">
-                  <img src={slide.img} alt={`Slide ${index + 1}`} />
-                  <div className="image-overlay"></div>
-                </div>
+                {/* Color Overlay */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: slide.overlay,
+                    zIndex: 1,
+                  }}
+                />
 
-                <motion.div
-                  className="banner-item"
-                  initial={{ opacity: 0, x: -100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
+                <div
+                  className="modern-slide-grid"
+                  style={{ position: "relative", zIndex: 2 }}
                 >
-                  <motion.h2
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
-                  >
-                    {slide.title} <br />
-                    <motion.span
-                      style={{ color: slide.color }}
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      {slide.subtitle}
-                    </motion.span>
-                  </motion.h2>
-
+                  {/* Left Content */}
                   <motion.div
-                    className="price-btn"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7, duration: 0.6 }}
+                    className="modern-slide-text"
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
                   >
-                    <motion.a
-                      href="tel:9387300323"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <button className="primary-btn">
+                    <span className="discount-badge">{slide.discount}</span>
+                    <h1>
+                      {slide.title}{" "}
+                      <span style={{ color: slide.color }}>
+                        {slide.subtitle}
+                      </span>
+                    </h1>
+                    <p className="slide-description">{slide.description}</p>
+
+                    <div className="slide-price-section">
+                      <div className="price-container">
+                        <span className="current-price">{slide.price}</span>
+                        <span className="original-price">
+                          {slide.originalPrice}
+                        </span>
+                      </div>
+                      <motion.button
+                        className="modern-order-btn"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        style={{ color: slide.color }}
+                      >
+                        {slide.btnIcon}
                         {slide.btnText}
-                        <motion.span
-                          animate={{ x: [0, 5, 0] }}
-                          transition={{ repeat: Infinity, duration: 1.5 }}
-                        >
-                          {slide.btnIcon}
-                        </motion.span>
-                      </button>
-                    </motion.a>
-                    <div className="price-wrapper">
-                      <p className="current-price">{slide.price}</p>
-                      <p className="original-price">{slide.originalPrice}</p>
+                      </motion.button>
+                    </div>
+
+                    {/* Features */}
+                    <div className="slide-features">
+                      <div className="feature">
+                        <TbClock />
+                        <span>30 min delivery</span>
+                      </div>
+                      <div className="feature">
+                        <TbDiscount />
+                        <span>Free delivery</span>
+                      </div>
                     </div>
                   </motion.div>
-                </motion.div>
-              </motion.div>
+
+                  {/* Right Image - Empty for background design */}
+                  <motion.div
+                    className="modern-slide-image"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    {/* Optional: Add a small decorative element here if needed */}
+                  </motion.div>
+                </div>
+              </div>
             </SwiperSlide>
           ))}
-
-          {/* Custom Navigation */}
-          <button className="custom-prev">
-            <TbChevronLeft />
-          </button>
-          <button className="custom-next">
-            <TbChevronRight />
-          </button>
         </Swiper>
       </motion.section>
 
-      {/* Popular Items Section */}
-      <motion.section
-        className="popular-section"
-        variants={staggerContainer}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <motion.div className="section-header" variants={fadeInUp}>
-          <h4 className="section-subtitle">crispy, every bite taste</h4>
-          <h2 className="section-title">Popular Food Items</h2>
-        </motion.div>
+      {/* Popular Items Section - Modern Cards */}
+      <section className="modern-popular-section">
+        <div className="section-header-modern">
+          <div>
+            <span className="section-tag">Popular Items</span>
+            <h2 className="section-title-modern">Most Loved Dishes</h2>
+          </div>
 
-        <div className="popular-wrapper" ref={popularRef}>
-          <div className="slider-controls">
-            <motion.button
+          <div className="slider-arrows">
+            <button
               onClick={Prev}
-              whileHover={{ scale: 1.1, backgroundColor: "#ff6b6b" }}
-              whileTap={{ scale: 0.9 }}
-              className="control-btn"
+              className={`arrow-btn ${next === 0 ? "disabled" : ""}`}
               disabled={next === 0}
             >
               <GrFormPreviousLink />
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               onClick={MoveNext}
-              whileHover={{ scale: 1.1, backgroundColor: "#ff6b6b" }}
-              whileTap={{ scale: 0.9 }}
-              className="control-btn"
-              disabled={next >= Math.ceil(cards.length / itemsPerView) - 1}
+              className={`arrow-btn ${next >= Math.ceil(cards.length / Math.floor(itemsPerView)) - 1 ? "disabled" : ""}`}
+              disabled={
+                next >= Math.ceil(cards.length / Math.floor(itemsPerView)) - 1
+              }
             >
               <GrFormNextLink />
-            </motion.button>
-          </div>
-
-          <div className="popular-grid-container">
-            <motion.div
-              className="popular-grid"
-              style={{
-                transform: `translateX(-${next * (100 / itemsPerView)}%)`,
-              }}
-              variants={staggerContainer}
-            >
-              {cards.map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="popular-card"
-                  variants={scaleIn}
-                  whileHover={{
-                    y: -10,
-                    boxShadow: "0 20px 30px rgba(0,0,0,0.1)",
-                  }}
-                >
-                  <div className="card-image">
-                    <img src={item.img} alt={item.title} />
-                    <motion.div
-                      className="card-overlay"
-                      whileHover={{ opacity: 1 }}
-                    >
-                      <TbShoppingCart />
-                    </motion.div>
-                  </div>
-                  <p>{item.title}</p>
-                  <div className="line-shape"></div>
-                </motion.div>
-              ))}
-            </motion.div>
+            </button>
           </div>
         </div>
 
-        <motion.div className="popular-banners" variants={staggerContainer}>
-          <motion.img
-            src={PopularBannerOne}
-            alt="Banner 1"
-            variants={scaleIn}
-            whileHover={{ scale: 1.05 }}
-          />
-          <motion.img
-            id="popular-banner-img"
-            src={PopularBannerTow}
-            alt="Banner 2"
-            variants={scaleIn}
-            whileHover={{ scale: 1.05 }}
-          />
-        </motion.div>
-      </motion.section>
+        <div className="popular-slider-container">
+          <motion.div
+            className="popular-grid-modern"
+            style={{
+              transform: `translateX(-${next * (100 / itemsPerView)}%)`,
+            }}
+          >
+            {cards.map((item, index) => (
+              <motion.div
+                key={index}
+                className="modern-food-card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <div className="card-image-wrapper">
+                  <img src={item.img} alt={item.title} />
+                  <button
+                    className="like-btn"
+                    onClick={() => toggleLike(index)}
+                  >
+                    {likedItems[index] ? <FaHeart /> : <FaRegHeart />}
+                  </button>
+                  <span className="card-discount">-20%</span>
+                </div>
 
-      {/* Food Items Section */}
-      <motion.section
-        className="items-section"
-        variants={staggerContainer}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <motion.div className="section-header" variants={fadeInUp}>
-          <p className="section-subtitle">crispy, every bite taste</p>
-          <h2 className="section-title">Foods Items</h2>
-        </motion.div>
+                <div className="card-content">
+                  <h3>{item.title}</h3>
+                  <div className="rating">
+                    <TbStar />
+                    <TbStar />
+                    <TbStar />
+                    <TbStar />
+                    <TbStar />
+                    <span>(120+)</span>
+                  </div>
+                  <div className="card-footer">
+                    <span className="card-price">₹199</span>
+                    <button className="add-to-cart-btn">
+                      <HiShoppingCart />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-        <div className="food-grid">
+      {/* Food Items Grid - Modern Design */}
+      <section className="modern-food-grid-section">
+        <div className="section-header-modern">
+          <div>
+            <span className="section-tag">Our Menu</span>
+            <h2 className="section-title-modern">Delicious Food Items</h2>
+          </div>
+        </div>
+
+        <div className="food-grid-modern">
           {FoodItem.map((item, index) => (
             <motion.div
               key={index}
-              className="food-card"
-              variants={scaleIn}
-              whileHover={{
-                y: -10,
-                boxShadow: "0 20px 30px rgba(0,0,0,0.15)",
-              }}
-              data-aos="fade-up"
+              className="modern-food-card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+              whileHover={{ y: -5 }}
             >
-              <div className="food-image">
+              <div className="card-image-wrapper">
                 <img src={item.img} alt={item.title} />
+                <span className="card-discount">-15%</span>
               </div>
-              <div className="food-info">
-                <p className="food-price">
-                  <span>
-                    <HiShoppingCart />
-                  </span>
-                  {item.price}
+
+              <div className="card-content">
+                <h3>{item.title}</h3>
+                <p className="item-description">
+                  Delicious food with special spices
                 </p>
-                <p className="food-title">{item.title}</p>
-                <motion.button
-                  className="primary-btn"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <a href="tel:9387300323">Order Now</a>
-                </motion.button>
+                <div className="card-footer">
+                  <span className="card-price">{item.price}</span>
+                  <button className="add-to-cart-btn">
+                    <a href="tel:+919387300323">
+                      <HiShoppingCart />
+                    </a>
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      {/* Cold Drinks Section */}
-      <motion.section
-        className="cold-drinks-section"
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <motion.div className="cold-text-container">
-          {text.split("").map((char, i) => (
-            <motion.span
-              className="animated-text"
-              key={i}
-              initial={{ y: 0 }}
-              whileHover={{
-                y: -10,
-                scale: 1.2,
-                color: "#ff6b6b",
-                transition: { type: "spring", stiffness: 500 },
-              }}
-            >
-              {char === " " ? "\u00A0" : char}
-            </motion.span>
-          ))}
-        </motion.div>
-        <div className="divider"></div>
+      {/* Cold Drinks Section - Modern Design */}
+      <section className="modern-drinks-section">
+        <div className="drinks-header">
+          <h2>
+            Refresh Your Day with <span>Cold Drinks</span>
+          </h2>
+          <p>Choose from our wide range of refreshing beverages</p>
+        </div>
 
-        <motion.div className="cold-drinks-grid" variants={staggerContainer}>
+        <div className="drinks-grid-modern">
           {coldDrinkItem.map((item, index) => (
             <motion.div
               key={index}
-              className="cold-drink-card"
-              variants={scaleIn}
-              whileHover={{
-                y: -10,
-                boxShadow: "0 20px 30px rgba(0,0,0,0.15)",
-              }}
-              data-aos="fade-up"
+              className="modern-drink-card"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
             >
-              <div className="drink-image">
+              <div className="drink-image-wrapper">
                 <img src={item.img} alt={item.title} />
               </div>
-
-              <div className="drink-info">
-                <p className="drink-price">
-                  <span>
-                    <HiShoppingCart id="card-store" />
-                  </span>
-                  {item.price}
-                </p>
-                <p className="drink-title">{item.title}</p>
-                <motion.a
-                  href="tel:9387300323"
-                  variants={fadeInUp}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <button className="delivery-btn">
-                    <span>
-                      <TbTruckDelivery />
-                    </span>
-                    Order Now
+              <div className="drink-content">
+                <h3>{item.title}</h3>
+                <p className="drink-size">500ml</p>
+                <div className="drink-footer">
+                  <span className="drink-price">{item.price}</span>
+                  <button className="drink-order-btn">
+                    <a href="tel:+919387300323">
+                      <IoMdCall />
+                    </a>
                   </button>
-                </motion.a>
+                </div>
               </div>
             </motion.div>
           ))}
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
 
-      {/* Infinite Slider */}
-      <motion.div
-        className="infinite-slider"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
-        <motion.div
-          className="slider-track"
-          animate={{
-            x: [0, -2000],
-            transition: {
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            },
-          }}
-        >
-          {slideNew.map((item, index) => (
-            <div className="slide-item" key={index}>
-              <h3>{item}</h3>
-              <img src={burger} alt="Burger" />
+      {/* Features Section - Modern Cards */}
+      <section className="modern-features">
+        <div className="features-grid">
+          <div className="feature-card-modern">
+            <div className="feature-icon" style={{ background: "#ffebee" }}>
+              <TbTruckDelivery style={{ color: "#ff6b6b" }} />
             </div>
-          ))}
-        </motion.div>
-      </motion.div>
+            <h3>Free Delivery</h3>
+            <p>Free delivery on orders above ₹199</p>
+          </div>
 
-      {/* Features Section */}
-      <motion.section
-        className="features-section"
-        variants={staggerContainer}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        {[
-          {
-            icon: superItem,
-            title: "Super Quality Food",
-            description:
-              "A team of dreamers and doers building unique interactive music and art",
-          },
-          {
-            icon: superItem,
-            title: "ORIGINAL RECIPES",
-            description:
-              "A team of dreamers and doers building unique interactive music and art",
-          },
-          {
-            icon: superItem,
-            title: "QUICK FAST DELIVERY",
-            description:
-              "A team of dreamers and doers building unique interactive music and art",
-          },
-        ].map((feature, index) => (
-          <motion.div
-            key={index}
-            className="feature-card"
-            variants={scaleIn}
-            whileHover={{ y: -10 }}
-          >
-            <img src={feature.icon} alt={feature.title} />
-            <h4>{feature.title}</h4>
-            <p>{feature.description}</p>
-          </motion.div>
-        ))}
-      </motion.section>
+          <div className="feature-card-modern">
+            <div className="feature-icon" style={{ background: "#e8f5e9" }}>
+              <TbDiscount style={{ color: "#4caf50" }} />
+            </div>
+            <h3>Special Offers</h3>
+            <p>Get 20% off on first order</p>
+          </div>
 
-      {/* About Section */}
-      <motion.section
-        className="about-section"
-        variants={staggerContainer}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <motion.div className="about-image" variants={scaleIn}>
-          <img src={slideImage} alt="Food" />
-        </motion.div>
+          <div className="feature-card-modern">
+            <div className="feature-icon" style={{ background: "#fff3e0" }}>
+              <TbClock style={{ color: "#ff9800" }} />
+            </div>
+            <h3>Fast Delivery</h3>
+            <p>Delivery in 30 minutes or less</p>
+          </div>
+        </div>
+      </section>
 
-        <motion.div className="about-content" variants={staggerContainer}>
-          <motion.p className="about-tag" variants={fadeInUp}>
-            About Our Food
-          </motion.p>
-          <motion.h2 variants={fadeInUp}>
-            Where Quality Meet Excellent <span>Service.</span>
-          </motion.h2>
-          <motion.p variants={fadeInUp}>
-            Its the perfect dining experience where every dish is crafted with
-            fresh, high-quality Experience quick and efficient service that
-            ensures your food is servead fresh Its the dining experience where
-            every dish is crafted with fresh, high-quality ingredients
-          </motion.p>
+      {/* About Section - Modern Design */}
+      <section className="modern-about">
+        <div className="about-grid">
+          <div className="about-image-modern">
+            <img src={slideImage} alt="About" />
+            <div className="experience-badge">
+              <span className="years">10+</span>
+              <span>Years Experience</span>
+            </div>
+          </div>
 
-          <motion.div className="about-details" variants={staggerContainer}>
-            <motion.div className="detail-item" variants={fadeInUp}>
-              <img src={superqualityfood} alt="Quality" />
-              <div>
-                <h3>Super Quality Food</h3>
-                <p>
-                  A team of dreamers and doers building unique interactive music
-                  and art
-                </p>
+          <div className="about-content-modern">
+            <span className="about-tag">About Us</span>
+            <h2>
+              Where Quality Meets <span>Excellent Service</span>
+            </h2>
+            <p className="about-description">
+              We're passionate about serving delicious food made with fresh
+              ingredients. Our chefs create mouth-watering dishes that will make
+              you come back for more.
+            </p>
+
+            <div className="about-stats">
+              <div className="stat">
+                <span className="stat-number">50+</span>
+                <span className="stat-label">Food Items</span>
               </div>
-            </motion.div>
-
-            <motion.div className="detail-item" variants={fadeInUp}>
-              <img src={reputation} alt="Reputation" />
-              <div>
-                <h3>Well Reputation</h3>
-                <p>
-                  A team of dreamers and doers building unique interactive music
-                  and art
-                </p>
+              <div className="stat">
+                <span className="stat-number">1000+</span>
+                <span className="stat-label">Happy Customers</span>
               </div>
-            </motion.div>
-          </motion.div>
+              <div className="stat">
+                <span className="stat-number">30min</span>
+                <span className="stat-label">Delivery Time</span>
+              </div>
+            </div>
 
-          <motion.button
-            className="about-btn"
-            variants={fadeInUp}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            More About Us
-          </motion.button>
-        </motion.div>
-      </motion.section>
+            <button className="about-btn-modern">Learn More About Us</button>
+          </div>
+        </div>
+      </section>
+
+      {/* Promo Banners */}
+      <section className="promo-banners">
+        <div className="promo-grid">
+          <img src={PopularBannerOne} alt="Promo 1" />
+          <img src={PopularBannerTow} alt="Promo 2" />
+        </div>
+      </section>
 
       {/* Payment Methods */}
-      <motion.div
-        className="payment-methods"
-        variants={staggerContainer}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-      >
-        <motion.img
-          src={BannerImage}
-          alt="UPI Support"
-          variants={scaleIn}
-          whileHover={{ scale: 1.05 }}
-        />
-        <motion.img
-          src={cash}
-          alt="Cash Payment"
-          variants={scaleIn}
-          whileHover={{ scale: 1.05 }}
-        />
-      </motion.div>
+      <section className="payment-section">
+        <h3>We Accept</h3>
+        <div className="payment-icons">
+          <img src={BannerImage} alt="UPI" />
+          <img src={cash} alt="Cash" />
+        </div>
+      </section>
 
-      {/* Delivery Section */}
-      <motion.section
-        className="delivery-section"
-        variants={staggerContainer}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-      >
-        <motion.div className="delivery-content" variants={staggerContainer}>
-          <motion.p variants={fadeInUp}>Crispy, Every Bite Taste</motion.p>
-          <motion.h2 variants={fadeInUp}>
-            45 Minutes Fast <span>Delivery</span> Challenge
-          </motion.h2>
-          <motion.a
-            href="tel:9387300323"
-            variants={fadeInUp}
-            whileHover={{ scale: 1.05 }}
-            className="Order-NowBrtn"
-            whileTap={{ scale: 0.95 }}
-          >
-            <button className="delivery-btn">
+      {/* Delivery CTA */}
+      <section className="delivery-cta">
+        <div className="cta-content">
+          <h2>Hungry? Order Now!</h2>
+          <p>Get your favorite food delivered in 45 minutes</p>
+          <button className="cta-btn">
+            <a href="tel:+919387300323">
+              {" "}
               <span>
                 <TbTruckDelivery />
               </span>
               Order Now
-            </button>
-          </motion.a>
-        </motion.div>
-
-        <motion.div
-          className="delivery-image"
-          variants={scaleIn}
-          animate={{
-            y: [0, -20, 0],
-            transition: {
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            },
-          }}
-        >
-          <img src={deliveryMan} alt="Delivery Man" />
-        </motion.div>
-      </motion.section>
+            </a>
+          </button>
+        </div>
+        <div className="cta-image">
+          <img src={deliveryMan} alt="Delivery" />
+        </div>
+      </section>
     </div>
   );
 }
