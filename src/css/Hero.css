@@ -486,11 +486,11 @@
   transition: transform 0.5s ease;
 }
 
-.drink-order-btn a{
+.drink-order-btn a {
   color: white;
 }
 
-.order-now{
+.order-now {
   position: absolute;
   top: 3px;
 }
@@ -803,7 +803,6 @@
 .cta-btn {
   padding: 15px 35px;
   background: white;
-  color: #ff6b6b;
   border: none;
   border-radius: 50px;
   font-size: 18px;
@@ -815,12 +814,12 @@
   transition: all 0.3s ease;
 }
 
-.cta-btn a{
-  color: white;
+.cta-btn a {
   text-decoration: none;
+  color: #ff6b6b;
 }
 
-.cta-btn span{
+.cta-btn span {
   position: relative;
   top: 2px;
 }
