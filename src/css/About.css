@@ -421,7 +421,9 @@ body {
 .feature-icon {
   font-size: 1.5rem;
   color: var(--secondary);
-  align-self: start;
+  align-items: s;
+
+  display: flex;
 }
 
 .fresh-feature h4 {
