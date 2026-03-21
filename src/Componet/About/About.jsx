@@ -68,22 +68,10 @@ export default function About() {
     },
   };
 
-  // Team members data
+  // Team members data - Single member
   const teamMembers = [
     {
       id: 1,
-      name: "Asrafull Amhed",
-      role: "Employee",
-      image: AsrafullImg,
-      quote: "Dream big, start small, but most importantly, start.",
-      icon: <TbChefHat />,
-      social: {
-        instagram: "https://www.instagram.com/asraful____ahmed007/",
-        facebook: "#",
-      },
-    },
-    {
-      id: 2,
       name: "Jaidul Islam",
       role: "Manager",
       image: JaidulImg,
@@ -234,7 +222,7 @@ export default function About() {
         </div>
       </motion.section>
 
-      {/* Team Section */}
+      {/* Team Section - Single Card Centered */}
       <section className="team-section">
         <div className="container">
           <motion.div
@@ -242,6 +230,7 @@ export default function About() {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
             <h2>
               Meet Our <span>Team</span>
@@ -249,14 +238,14 @@ export default function About() {
             <p>The amazing people behind our service</p>
           </motion.div>
 
-          <div className="team-grid">
+          <div className="team-grid-single">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.id}
                 className="team-card"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
+                transition={{ delay: index * 0.2, duration: 0.5 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
               >
@@ -272,12 +261,16 @@ export default function About() {
                     <a
                       href={member.social.instagram}
                       className="team-social-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <TbBrandInstagram />
                     </a>
                     <a
                       href={member.social.facebook}
                       className="team-social-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <TbBrandFacebook />
                     </a>
